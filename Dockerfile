@@ -7,7 +7,6 @@ ADD . /go/src/dockerinaja
 RUN go get -d github.com/go-sql-driver/mysql
 RUN go get -d github.com/labstack/echo
 RUN go install dockerinaja
-RUN go build
 
 ENTRYPOINT /go/bin/dockerinaja
 
