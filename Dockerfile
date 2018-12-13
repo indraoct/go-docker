@@ -1,6 +1,6 @@
 FROM golang:1.11.1
 
-MAINTAINER Indra Octama indra.octama@orori.com
+MAINTAINER Indra Octama omyank2007i@gmail.com
 
 ADD . /go/src/dockerinaja
 

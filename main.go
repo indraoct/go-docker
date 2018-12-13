@@ -40,6 +40,7 @@ func main() {
 	})
 	
 	e.GET("/user/getall",func(c echo.Context) error{
+		arr_users = []Users{}
 		res, err := db.Query("SELECT id,username,is_active FROM users order by id DESC")
 		
 		if err != nil{
