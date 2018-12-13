@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
 	"net/http"
+	"os"
 )
 
 type Users struct{
@@ -19,7 +20,13 @@ func main() {
 	var users Users
 	var arr_users []Users
 	
-	db, err := sql.Open("mysql", "root:root@tcp(192.168.99.100:3306)/dockeraja")
+	db_user   := os.Getenv("DB_USER")
+	db_pass   := os.Getenv("DB_PASS")
+	db_host   := os.Getenv("DB_HOST")
+	db_port   := os.Getenv("DB_PORT")
+	apps_port := os.Getenv("PORT")
+	
+	db, err := sql.Open("mysql", db_user+":"+db_pass+"@tcp("+db_host+":"+db_port+")/dockeraja")
 	
 	defer db.Close()
 	
@@ -52,5 +59,5 @@ func main() {
 		
 		return c.JSON(http.StatusOK,arr_users)
 	})
-  e.Logger.Fatal(e.Start(":1323"))
+  e.Logger.Fatal(e.Start(":"+apps_port))
 }

@@ -4,13 +4,22 @@ MAINTAINER Indra Octama indra.octama@orori.com
 
 ADD . /go/src/dockerinaja
 
+ARG appname=e-document-api
+ARG http_port=1323
+
 RUN go get -d github.com/go-sql-driver/mysql
 RUN go get -d github.com/labstack/echo
 RUN go install dockerinaja
 
 ENTRYPOINT /go/bin/dockerinaja
 
-EXPOSE 1323
+ENV PORT $http_port
+ENV DB_HOST 192.168.10.191
+ENV DB_PORT 3306
+ENV DB_USER userdocker
+ENV DB_PASS passdocker
+
+EXPOSE $http_port
 
 RUN mkdir -p /go/src/dockerinaja
 COPY . /go/src/dockerinaja
