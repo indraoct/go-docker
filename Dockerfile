@@ -1,4 +1,4 @@
-FROM golang:1.11.1
+FROM golang:alpine
 
 MAINTAINER Indra Octama omyank2007i@gmail.com
 
@@ -6,6 +6,8 @@ ADD . /go/src/dockerinaja
 
 ARG appname=e-document-api
 ARG http_port=1323
+
+RUN apk update && apk add git
 
 RUN go get -d github.com/go-sql-driver/mysql
 RUN go get -d github.com/labstack/echo
