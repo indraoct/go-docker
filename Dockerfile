@@ -16,10 +16,10 @@ RUN go install dockerinaja
 ENTRYPOINT /go/bin/dockerinaja
 
 ENV PORT $http_port
-ENV DB_HOST 192.168.10.191
+ENV DB_HOST dev.indraoctama.com
 ENV DB_PORT 3306
-ENV DB_USER userdocker
-ENV DB_PASS passdocker
+ENV DB_USER developer
+ENV DB_PASS dev123
 
 EXPOSE $http_port
 
