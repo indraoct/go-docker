@@ -4,7 +4,7 @@ MAINTAINER Indra Octama omyank2007i@gmail.com
 
 ADD . /go/src/dockerinaja
 
-ARG appname=e-document-api
+ARG appname=dockerinaja
 ARG http_port=1323
 
 RUN apk update && apk add git
