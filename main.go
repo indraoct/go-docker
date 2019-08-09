@@ -2,11 +2,13 @@ package main
 
 import (
 	"database/sql"
+	"dockerinaja/config"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/kelseyhightower/envconfig"
 	"github.com/labstack/echo"
+	"github.com/labstack/gommon/log"
 	"net/http"
-	"os"
 )
 
 type Users struct{
@@ -15,18 +17,20 @@ type Users struct{
 	IsActive uint64 `json:"is_active"`
 }
 
+
 func main() {
 	e := echo.New()
 	var users Users
 	var arr_users []Users
+	var cfg config.AppConfig
 	
-	db_user   := os.Getenv("DB_USER")
-	db_pass   := os.Getenv("DB_PASS")
-	db_host   := os.Getenv("DB_HOST")
-	db_port   := os.Getenv("DB_PORT")
-	apps_port := os.Getenv("PORT")
+	//CONFIG APPS (OS level)
+	err := envconfig.Process("indra",&cfg)
+	if err != nil{
+		log.Fatal(err.Error())
+	}
 	
-	db, err := sql.Open("mysql", db_user+":"+db_pass+"@tcp("+db_host+":"+db_port+")/dockeraja")
+	db, err := sql.Open("mysql", cfg.DbUser+":"+cfg.DbPass+"@tcp("+cfg.DbHost+":"+cfg.DbPort+")/"+cfg.DbName)
 	
 	defer db.Close()
 	
@@ -60,5 +64,5 @@ func main() {
 		
 		return c.JSON(http.StatusOK,arr_users)
 	})
-  e.Logger.Fatal(e.Start(":"+apps_port))
+  e.Logger.Fatal(e.Start(":"+cfg.AppsPort))
 }
